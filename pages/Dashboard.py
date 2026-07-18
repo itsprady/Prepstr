@@ -16,8 +16,11 @@ def show():
         st.write(f"**{t['title']}** — {t['subject']} — {t['time_limit']} mins")
         col1, col2 = st.columns([1,3])
         with col1:
-            if st.button('Start', key=f'start_{t['test_id']}'):
+            if st.button('Start', key=f"start_{t['test_id']}"):
+                # initialize/clear any previous test session
                 st.session_state.test_in_progress = int(t['test_id'])
+                if 'test_session' in st.session_state:
+                    del st.session_state['test_session']
                 st.experimental_rerun()
         with col2:
             st.write('')
